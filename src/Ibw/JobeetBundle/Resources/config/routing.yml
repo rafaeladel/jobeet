@@ -1,0 +1,45 @@
+ibw_job_index:
+    pattern:	/
+    defaults:	{ _controller: IbwJobeetBundle:Job:index }
+
+ibw_job_show:
+    pattern:	/job/{company}/{location}/{id}/{position}
+    defaults:	{ _controller: IbwJobeetBundle:Job:show }
+    methods:	[GET]
+    requirements:
+        id:	\d+
+
+ibw_job_edit:
+    pattern:	/job/{id}/edit
+    defaults:	{ _controller: IbwJobeetBundle:Job:edit }
+    methods:		[GET]
+    requirements:
+        id:	\d+
+        
+ibw_job_new:
+    pattern:	/job/new
+    defaults:	{ _controller: IbwJobeetBundle:Job:new }
+    methods:    [GET]
+
+ibw_job_create:
+    pattern:    /job/new
+    defaults:   { _controller: IbwJobeetBundle:Job:create }
+    methods:    [POST]
+
+ibw_category_show:
+    pattern:    /category/{id}/{slug}/{page}
+    defaults:   { _controller: IbwJobeetBundle:Category:show }
+
+ibw_job_edit:
+    pattern:  /{token}/edit
+    defaults: { _controller: "IbwJobeetBundle:Job:edit" }
+ 
+ibw_job_update:
+    pattern:  /{token}/update
+    defaults: { _controller: "IbwJobeetBundle:Job:update" }
+    methods:    [POST,PUT]
+ 
+ibw_job_delete:
+    pattern:  /{token}/delete
+    defaults: { _controller: "IbwJobeetBundle:Job:delete" }
+    methods:    [POST,DELETE]

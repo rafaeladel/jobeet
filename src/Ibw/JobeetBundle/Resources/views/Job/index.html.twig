@@ -1,0 +1,31 @@
+{% extends 'IbwJobeetBundle::layout.html.twig' %}
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/ibwjobeet/css/jobs.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+    <div id="jobs">
+        {% for category in categories %}
+            <div>
+                <div class="category-{{ category.slug }}">
+                    <div class="category">
+                        <div class="feed">
+                            <a href="">Feed</a>
+                        </div>
+                        <h1><a href="{{ path('ibw_category_show', { 'id': category.id, 'slug': category.slug, 'page': 1 } )}}">{{ category.name }}</a></h1>
+                    </div>
+                </div>
+                {{ include('IbwJobeetBundle:Job:list.html.twig', {'jobs': category.jobs}) }}
+
+            </div>
+            {% if RemainingJobs(category.id) %}
+                <div class="more_jobs">
+                    and <a href="{{ path('ibw_category_show', { 'id': category.id, 'slug': category.slug, 'page': 1 }) }}">{{ RemainingJobs(category.id) }}</a>
+                    more...
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

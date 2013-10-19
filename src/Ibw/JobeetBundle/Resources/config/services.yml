@@ -1,0 +1,26 @@
+parameters:
+    ibw_jobeet_twig_extension.class: Ibw\JobeetBundle\Twig\Extensions\JobeetExtensions 
+    ibw_jobeet_paginator.extension: Ibw\JobeetBundle\Twig\Extensions\PaginatorExtension
+    ibw_jobeet_paginator.class: Ibw\JobeetBundle\Utils\Paginator
+
+services:
+    ibw_jobeet_twig_extension:
+        class: %ibw_jobeet_twig_extension.class%
+        tags:
+          - { name: twig.extension }
+        arguments:
+            container:  "@service_container"
+            doctrine:   "@doctrine"
+
+    ibw_jobeet_twig_paginator_extension:
+        class: %ibw_jobeet_paginator.extension%
+        tags:
+          - { name: twig.extension }
+        arguments:
+            router: "@router"
+            paginator: "@paginator"
+        calls:
+          - [setRequest, ['@?request=']]
+
+    paginator:
+        class: %ibw_jobeet_paginator.class%
