@@ -22,7 +22,7 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
          $job_sensio_labs->setHowToApply('Send your resume to fabien.potencier [at] sensio.com');
          $job_sensio_labs->setIsPublic(true);
          $job_sensio_labs->setIsActivated(true);
-         $job_sensio_labs->setEmail('job@example.com');
+         $job_sensio_labs->setEmail('fisrtjob@example.com');
          $job_sensio_labs->setExpiresAt(new \DateTime('+30 days'));
 
          $job_extreme_sensio = new Job();
@@ -37,7 +37,7 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
          $job_extreme_sensio->setHowToApply('Send your resume to fabien.potencier [at] sensio.com');
          $job_extreme_sensio->setIsPublic(true);
          $job_extreme_sensio->setIsActivated(true);
-         $job_extreme_sensio->setEmail('job@example.com');
+         $job_extreme_sensio->setEmail('secondjob@example.com');
          $job_extreme_sensio->setExpiresAt(new \DateTime('+30 days'));
             
         $job_expired = new Job();
@@ -52,7 +52,7 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
         $job_expired->setHowToApply('Send your resume to lorem.ipsum [at] dolor.sit');
         $job_expired->setIsPublic(true);
         $job_expired->setIsActivated(true);
-        $job_expired->setEmail('job@example.com');
+        $job_expired->setEmail('thirdjob@example.com');
         $job_expired->setCreatedAt(new \DateTime('2005-12-01'));
 
         for($i = 100; $i <= 130; $i++)
@@ -67,7 +67,7 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
             $job->setHowToApply('Send your resume to lorem.ipsum [at] dolor.sit');
             $job->setIsPublic(true);
             $job->setIsActivated(true);
-            $job->setEmail('job@example.com');
+            $job->setEmail("jobnumber{$i}@example.com");
      
             $em->persist($job);
         }

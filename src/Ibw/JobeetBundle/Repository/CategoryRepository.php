@@ -28,6 +28,8 @@ class CategoryRepository extends EntityRepository
 					->innerJoin('c.jobs', 'j')
 					->where('j.expires_at > :date')
 					->setParameter('date', date('Y-m-d H:i:s', time()))
+                    ->andWhere('j.is_activated = :activated ')
+                    ->setParameter('activated', 1)
 					->addOrderBy('j.expires_at', 'DESC');
 
 		if($limit)
@@ -46,6 +48,8 @@ class CategoryRepository extends EntityRepository
 					->innerJoin('c.jobs', 'j')
 					->andWhere('j.expires_at > :date')
 					->setParameter('date', date('Y-m-d H:i:s', time()))
+                    ->andWhere('j.is_activated = :activated ')
+                    ->setParameter('activated', 1)
 					->addOrderBy('j.expires_at', 'DESC');
 
 		if($max)

@@ -21,7 +21,7 @@
 
     {% block content %}
         <h1>Job edit</h1>
-        <form novalidate action="{{ path('ibw_job_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_start(form, {'action': path('ibw_job_create'), 'method': 'post', 'enctype': 'multipart/form-data'}) }}
             <table id="job_form">
                  <tfoot>
                     <tr>

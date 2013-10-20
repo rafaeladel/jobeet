@@ -92,18 +92,26 @@
 	"buffers":
 	[
 		{
-			"file": "src/Ibw/JobeetBundle/Resources/views/layout.html.twig",
+			"file": "src/Ibw/JobeetBundle/Controller/JobController.php",
 			"settings":
 			{
-				"buffer_size": 3290,
+				"buffer_size": 5661,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Ibw/JobeetBundle/Controller/JobController.php",
+			"file": "src/Ibw/JobeetBundle/Forms/JobType.php",
 			"settings":
 			{
-				"buffer_size": 1171,
+				"buffer_size": 1116,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Resources/views/Job/new.html.twig",
+			"settings":
+			{
+				"buffer_size": 4607,
 				"line_ending": "Unix"
 			}
 		},
@@ -111,7 +119,7 @@
 			"file": "src/Ibw/JobeetBundle/Resources/config/routing.yml",
 			"settings":
 			{
-				"buffer_size": 649,
+				"buffer_size": 1565,
 				"line_ending": "Unix"
 			}
 		},
@@ -119,7 +127,63 @@
 			"file": "src/Ibw/JobeetBundle/Entity/Job.php",
 			"settings":
 			{
-				"buffer_size": 8487,
+				"buffer_size": 11009,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Tests/Functional/JobControllerTest.php",
+			"settings":
+			{
+				"buffer_size": 3390,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Tests/Unit/Entity/JobTest.php",
+			"settings":
+			{
+				"buffer_size": 1933,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Resources/views/Job/edit.html.twig",
+			"settings":
+			{
+				"buffer_size": 4298,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig",
+			"settings":
+			{
+				"buffer_size": 1472,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Ibw/JobeetBundle/Resources/views/Job/admin.html.twig",
+			"settings":
+			{
+				"buffer_size": 1508,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/config/config.yml",
+			"settings":
+			{
+				"buffer_size": 2028,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php",
+			"settings":
+			{
+				"buffer_size": 29477,
 				"line_ending": "Unix"
 			}
 		}
@@ -236,10 +300,19 @@
 	},
 	"file_history":
 	[
+		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadata.php",
+		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php",
+		"/home/rafael/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/Category/show.html.twig",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/DataFixtures/ORM/LoadJobData.php",
+		"/home/rafael/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Entity/Category.php",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/paginator.html.twig",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/layout.html.twig",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Repository/CategoryRepository.php",
+		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/Job/edit.html.twig",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Entity/Job.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Repository/JobRepository.php",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/Repository/CategoryRepository.php",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/Entity/Category.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Functional/CategoryControllerTest.php",
 		"/var/www/jobeet/app/config/parameters_test.yml",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Unit/Entity/ModelTestCase.php",
@@ -259,7 +332,6 @@
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Unit/Repository/JobRepositoryTest.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Unit/Entity/JobTest.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Entity/Affiliate.php",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/DataFixtures/ORM/LoadJobData.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Unit/Entity/AffiliateTest.php",
 		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/PersistentCollection.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Tests/Unit/Utils/JobeetTest.php",
@@ -272,7 +344,6 @@
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Utils/Jobeet.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Twig/Extensions/PaginatorExtension.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/config/services.yml",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/Category/show.html.twig",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Twig/Extensions/JobeetExtensions.php",
 		"/var/www/jobeet/vendor/symfony/symfony/src/Symfony/Component/Routing/RouterInterface.php",
 		"/var/www/jobeet/vendor/symfony/symfony/src/Symfony/Bridge/Doctrine/RegistryInterface.php",
@@ -280,7 +351,6 @@
 		"/var/www/jobeet/vendor/doctrine/orm/tests/Doctrine/Tests/Models/CMS/CmsAddress.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/config/routing.yml",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/paginator.html.twig",
 		"/var/www/jobeet/vendor/symfony/symfony/src/Symfony/Component/Routing/Generator/UrlGeneratorInterface.php",
 		"/var/www/jobeet/vendor/symfony/symfony/src/Symfony/Component/Routing/Generator/UrlGenerator.php",
 		"/var/www/jobeet/vendor/symfony/symfony/src/Symfony/Component/Routing/Router.php",
@@ -304,14 +374,12 @@
 		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php",
 		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/EntityResult.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Repository/CategoryRepository",
-		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/views/layout.html.twig",
 		"/var/www/jobeet/web/bundles/ibwjobeet/css/jobs.css",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/public/css/jobs.css",
 		"/var/www/jobeet/app/config/routing_dev.yml",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Views/layout.html.twig",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Controller/DefaultController.php",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/css/main.css",
-		"/home/rafael/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
 		"/var/www/jobeet/vendor/doctrine/doctrine-fixtures-bundle/Doctrine/Bundle/FixturesBundle/DoctrineFixturesBundle.php",
 		"/var/www/jobeet/vendor/doctrine/orm/lib/Doctrine/ORM/EntityManager.php",
 		"/var/www/jobeet/vendor/doctrine/common/lib/Doctrine/Common/Persistence/ObjectManager.php",
@@ -321,7 +389,6 @@
 		"/home/rafael/.config/sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings",
 		"/var/www/jobeet/app/config/routing.yml",
 		"/home/rafael/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-		"/home/rafael/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
 		"/home/rafael/.config/sublime-text-3/Packages/AdvancedNewFile/Default (Linux).sublime-keymap",
 		"/var/www/jobeet/src/Ibw/JobeetBundle/Resources/doc/index.rst",
 		"/var/www/symblog/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Tests/Functional/WebTestCase.php",
@@ -360,10 +427,7 @@
 		"/var/www/symblog/src/Blogger/BlogBundle/DataFixtures/ORM/BlogFixtures.php",
 		"/var/www/symblog/src/Blogger/BlogBundle/DataFixtures/ORM/CommentFixtures.php",
 		"/var/www/symblog/vendor/doctrine/data-fixtures/lib/Doctrine/Common/DataFixtures/ReferenceRepository.php",
-		"/var/www/symblog/vendor/doctrine/data-fixtures/lib/Doctrine/Common/DataFixtures/AbstractFixture.php",
-		"/var/www/symblog/src/Blogger/BlogBundle/Controller/PageController.php",
-		"/var/www/symblog/web/bundles/bloggerblog/css/blog.css",
-		"/var/www/symblog/composer.json"
+		"/var/www/symblog/vendor/doctrine/data-fixtures/lib/Doctrine/Common/DataFixtures/AbstractFixture.php"
 	],
 	"find":
 	{
@@ -382,6 +446,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"font",
+			"getDaysBeforeExpires",
+			"is_activated",
+			"isactivated",
+			"update",
+			"entity",
+			"<?",
+			"file",
+			"edit_form",
+			"logo",
+			"compan",
 			"type",
 			"job_sensio_labs",
 			"# This file is auto-generated during the composer install\nparameters:\n    database_driver: pdo_sqlite\n    database_name: jobeet\n    database_user: jobeetadmin\n    database_password: null\n    database_memory: false\n    mailer_transport: smtp\n    mailer_host: 127.0.0.1\n    mailer_user: null\n    mailer_password: null\n    locale: en\n    secret: ThisTokenIsNotSoSecretChangeIt\n    max_jobs_on_homepage: 10\n    max_jobs_on_category: 10",
@@ -444,6 +519,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"getDaysBeforeExpiration",
+			"form",
 			"job",
 			"getNextPage",
 			"getHasNext",
@@ -483,53 +560,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 11,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/Ibw/JobeetBundle/Resources/views/layout.html.twig",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3290,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1121,
-								1121
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "src/Ibw/JobeetBundle/Controller/JobController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1171,
+						"buffer_size": 5661,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1160,
-								1160
+								0,
+								0
 							]
 						],
 						"settings":
@@ -538,18 +586,74 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 408.0,
+						"translation.y": 740.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Ibw/JobeetBundle/Forms/JobType.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1116,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								788,
+								788
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "src/Ibw/JobeetBundle/Resources/views/Job/new.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4607,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 14.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "src/Ibw/JobeetBundle/Resources/config/routing.yml",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 649,
+						"buffer_size": 1565,
 						"regions":
 						{
 						},
@@ -573,20 +677,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "src/Ibw/JobeetBundle/Entity/Job.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8487,
+						"buffer_size": 11009,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								479,
-								479
+								0,
+								0
 							]
 						],
 						"settings":
@@ -596,7 +700,208 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+						"translation.y": 10385.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/Ibw/JobeetBundle/Tests/Functional/JobControllerTest.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/Ibw/JobeetBundle/Tests/Unit/Entity/JobTest.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1933,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1923,
+								1923
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 765.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/Ibw/JobeetBundle/Resources/views/Job/edit.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								689,
+								689
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
 						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1472,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								442,
+								442
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 47.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/Ibw/JobeetBundle/Resources/views/Job/admin.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1508,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/config/config.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2028,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1197,
+								1197
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 510.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1237,
+								1237
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -655,12 +960,68 @@
 		"selected_items":
 		[
 			[
-				"job",
-				"src/Ibw/JobeetBundle/Entity/Job.php"
+				"classmetadatainf",
+				"vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php"
+			],
+			[
+				"classmeta",
+				"vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/ClassMetadata.php"
+			],
+			[
+				"schematool",
+				"vendor/doctrine/orm/lib/Doctrine/ORM/Tools/SchemaTool.php"
+			],
+			[
+				"config.ym",
+				"app/config/config.yml"
+			],
+			[
+				"show",
+				"src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig"
+			],
+			[
+				"admin.html",
+				"src/Ibw/JobeetBundle/Resources/views/Job/admin.html.twig"
+			],
+			[
+				"show.html",
+				"src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig"
+			],
+			[
+				"loadjo",
+				"src/Ibw/JobeetBundle/DataFixtures/ORM/LoadJobData.php"
+			],
+			[
+				"new",
+				"src/Ibw/JobeetBundle/Resources/views/Job/new.html.twig"
 			],
 			[
 				"routing",
 				"src/Ibw/JobeetBundle/Resources/config/routing.yml"
+			],
+			[
+				"new.",
+				"src/Ibw/JobeetBundle/Resources/views/Job/new.html.twig"
+			],
+			[
+				"edit.",
+				"src/Ibw/JobeetBundle/Resources/views/Job/edit.html.twig"
+			],
+			[
+				"jobtest",
+				"src/Ibw/JobeetBundle/Tests/Unit/Entity/JobTest.php"
+			],
+			[
+				"categ",
+				"src/Ibw/JobeetBundle/Entity/Category.php"
+			],
+			[
+				"catego",
+				"src/Ibw/JobeetBundle/Repository/CategoryRepository.php"
+			],
+			[
+				"job",
+				"src/Ibw/JobeetBundle/Entity/Job.php"
 			],
 			[
 				"jobcon",
@@ -691,10 +1052,6 @@
 				"src/Ibw/JobeetBundle/Entity/Category.php"
 			],
 			[
-				"catego",
-				"src/Ibw/JobeetBundle/Repository/CategoryRepository.php"
-			],
-			[
 				"jobcontes",
 				"src/Ibw/JobeetBundle/Tests/Functional/JobControllerTest.php"
 			],
@@ -721,10 +1078,6 @@
 			[
 				"config_te",
 				"app/config/config_test.yml"
-			],
-			[
-				"categ",
-				"src/Ibw/JobeetBundle/Entity/Category.php"
 			],
 			[
 				"paramet",
@@ -845,10 +1198,6 @@
 			[
 				"j",
 				"src/Ibw/JobeetBundle/Twig/Extensions/JobeetExtensions.php"
-			],
-			[
-				"show",
-				"src/Ibw/JobeetBundle/Resources/views/Category/show.html.twig"
 			],
 			[
 				"paginatorexte",
@@ -1023,10 +1372,6 @@
 				"vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/EntityResult.php"
 			],
 			[
-				"loadjo",
-				"src/Ibw/JobeetBundle/DataFixtures/ORM/LoadJobData.php"
-			],
-			[
 				"layout",
 				"src/Ibw/JobeetBundle/Resources/views/layout.html.twig"
 			],
@@ -1125,46 +1470,6 @@
 			[
 				"show.",
 				"src/Blogger/BlogBundle/Resources/views/Blog/show.html.twig"
-			],
-			[
-				"comemntre",
-				"src/Blogger/BlogBundle/Entity/Repository/CommentRepository.php"
-			],
-			[
-				"commentconto",
-				"src/Blogger/BlogBundle/Controller/CommentController.php"
-			],
-			[
-				"commentc",
-				"src/Blogger/BlogBundle/Controller/CommentController.php"
-			],
-			[
-				"comment",
-				"src/Blogger/BlogBundle/Entity/Comment.php"
-			],
-			[
-				"blogre",
-				"src/Blogger/BlogBundle/Entity/Repository/BlogRepository.php"
-			],
-			[
-				"commentre",
-				"src/Blogger/BlogBundle/Entity/Repository/CommentRepository.php"
-			],
-			[
-				"commentty",
-				"src/Blogger/BlogBundle/Form/CommentType.php"
-			],
-			[
-				"commnet",
-				"src/Blogger/BlogBundle/Entity/Comment.php"
-			],
-			[
-				"show.html",
-				"src/Blogger/BlogBundle/Resources/views/Blog/show.html.twig"
-			],
-			[
-				"blog.css",
-				"web/bundles/bloggerblog/css/blog.css"
 			]
 		],
 		"width": 0.0
@@ -1191,7 +1496,7 @@
 	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 321.0,
 	"status_bar_visible": true,
 	"template_settings":

@@ -1,3 +1,9 @@
+ibw_category_show:
+    pattern:    /category/{id}/{slug}/{page}
+    defaults:   { _controller: IbwJobeetBundle:Category:show }
+    requirements:
+        id: \d+
+
 ibw_job_index:
     pattern:	/
     defaults:	{ _controller: IbwJobeetBundle:Job:index }
@@ -8,6 +14,20 @@ ibw_job_show:
     methods:	[GET]
     requirements:
         id:	\d+
+
+ibw_job_preview:
+    pattern:    /job/{company}/{location}/{token}/{position}
+    defaults:   { _controller: IbwJobeetBundle:Job:preview }
+    methods:    [GET]
+    requirements:
+        token: \w+
+
+ibw_job_publish:
+    pattern:  /{token}/publish
+    defaults: { _controller: IbwJobeetBundle:Job:publish}
+    methods:  [POST]
+    requirements:
+        token:  \w+
 
 ibw_job_edit:
     pattern:	/job/{id}/edit
@@ -25,10 +45,6 @@ ibw_job_create:
     pattern:    /job/new
     defaults:   { _controller: IbwJobeetBundle:Job:create }
     methods:    [POST]
-
-ibw_category_show:
-    pattern:    /category/{id}/{slug}/{page}
-    defaults:   { _controller: IbwJobeetBundle:Category:show }
 
 ibw_job_edit:
     pattern:  /{token}/edit

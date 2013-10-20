@@ -11,6 +11,8 @@ class JobRepository extends EntityRepository
 						->select('j')
 						->where('j.expires_at > :date')
 						->setParameter('date', date('Y-m-d H:i:s', time() - 86400 * 30))
+                        ->andWhere('j.is_activated = :activated ')
+                        ->setParameter('activated', 1)
 						->addOrderBy('j.expires_at', 'DESC');
 		if($category_id)
 		{
@@ -28,6 +30,8 @@ class JobRepository extends EntityRepository
 						->where('j.expires_at > :date')
 						->andWhere('j.id = :id')
 						->setParameters(array('date' => date('Y-m-d H:i:s', time() - 86400 * 30), 'id' => $id))
+                        ->andWhere('j.is_activated = :activated ')
+                        ->setParameter('activated', 1)
 						->addOrderBy('j.expires_at', 'DESC')
 						->getQuery();
 
@@ -48,7 +52,9 @@ class JobRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('j')
 					->select('count(j.id)')
 					->where('j.expires_at > :date')
-					->setParameter('date', date('Y-m-d H:i:s', time()));
+					->setParameter('date', date('Y-m-d H:i:s', time()))
+                    ->andWhere('j.is_activated = :activated ')
+                    ->setParameter('activated', 1);
 
 		if($category_id)
 		{

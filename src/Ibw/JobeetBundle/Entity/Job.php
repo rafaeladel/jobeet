@@ -530,8 +530,7 @@ class Job
 
     /**
      * Get category
-     *
-     * @return Category 
+     * @return Category
      */
     public function getCategory()
     {
@@ -594,6 +593,11 @@ class Job
             return;
         }
 
+        if(!file_exists($this->getUploadDir()))
+        {
+            mkdir($this->getUploadDir(),0777, true);
+        }
+
         $this->file->move($this->getRootUploadDir(), $this->logo);
         unset($this->file);
     }
@@ -620,5 +624,26 @@ class Job
         {
             $this->setToken(sha1($this->getEmail().rand(11111,99999)));
         }
+    }
+
+    public function getDaysBeforeExpiration()
+    {
+        return ceil(($this->getExpiresAt()->format('U') - time()) / 86400);
+    }
+
+    public function expiresSoon()
+    {
+        return $this->getDaysBeforeExpiration() < 5;
+    }
+
+    public function isExpired()
+    {
+        return $this->getDaysBeforeExpiration() < 0;
+    }
+
+    public function publish()
+    {
+        $this->setIsActivated(true);
+        return;
     }
 }

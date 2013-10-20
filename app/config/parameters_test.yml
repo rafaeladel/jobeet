@@ -6,8 +6,8 @@ parameters:
     database_password: null
     database_memory: false
     database_path: jobeet.sqlite3
-    # database_memory: true
-    # database_path: :memory:
+#    database_memory: true
+#    database_path: :memory:
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
@@ -16,3 +16,4 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
     max_jobs_on_homepage: 10
     max_jobs_on_category: 10
+    kernel.debug: true

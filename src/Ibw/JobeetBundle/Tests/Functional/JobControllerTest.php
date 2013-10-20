@@ -3,17 +3,17 @@
 
 	use Ibw\JobeetBundle\Tests\Unit\Entity\ModelTestCase;
 
-	class JobControllerTest extends ModelTestCase 
+	class JobControllerTest extends ModelTestCase
 	{
-		public function testIndex()
-		{
-			$client = static::createClient();
-			$crawler = $client->request('GET', "/");
-			$this->assertEquals('Ibw\JobeetBundle\Controller\JobController::indexAction', $client->getRequest()->attributes->get('_controller'));
-			$this->assertEquals(200 , $client->getResponse()->getStatusCode());
-			$this->assertEquals(0, $crawler->filter('.jobs td.position:contains("Expired")')->count());
-		
-		}
+        public function testIndex()
+        {
+            $client = static::createClient();
+            $crawler = $client->request('GET', "/");
+            $this->assertEquals('Ibw\JobeetBundle\Controller\JobController::indexAction', $client->getRequest()->attributes->get('_controller'));
+            $this->assertEquals(200 , $client->getResponse()->getStatusCode());
+            $this->assertEquals(0, $crawler->filter('.jobs td.position:contains("Expired")')->count());
+
+        }
 
 		public function testCategoryCount()
 		{
@@ -43,6 +43,29 @@
 			$client = static::createClient();
 			$crawler = $client->request('GET', '/job/new');
 			$this->assertEquals(200, $client->getResponse()->getStatusCode());
+            $this->assertEquals('Ibw\JobeetBundle\Controller\JobController::newAction', $client->getRequest()->attributes->get('_controller'));
 		}
+
+        public function testJobForm()
+        {
+            $client = static::createClient();
+            $crawler = $client->request('GET', '/job/new');
+            $form = $crawler->selectButton("Preview your job")->form(array(
+                'job[company]'      => 'Rofa Co.',
+                'job[url]'          => 'http://www.sensio.com/',
+                'job[file]'         => __DIR__.'/../../../../../web/bundles/ibwjobeet/images/sensio-labs.gif',
+                'job[position]'     => 'Developer',
+                'job[location]'     => 'Atlanta, USA',
+                'job[description]'  => 'You will work with symfony to develop websites for our customers.',
+                'job[how_to_apply]' => 'Send me an email',
+                'job[email]'        => 'for.a.job@example.com',
+                'job[is_public]'    => false,
+            ));
+            $client->submit($form);
+            $this->assertEquals('Ibw\JobeetBundle\Controller\JobController::createAction', $client->getRequest()->attributes->get('_controller'));
+
+            $client->followRedirect();
+            $this->assertEquals('Ibw\JobeetBundle\Controller\JobController::previewAction', $client->getRequest()->attributes->get('_controller'));
+        }
 	}
 ?>
