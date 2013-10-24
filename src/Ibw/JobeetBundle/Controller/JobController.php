@@ -35,19 +35,27 @@ class JobController extends Controller
 		$repo = $this->getDoctrine()->getManager()->getRepository("IbwJobeetBundle:Job");
 		$entity = $repo->findOneByToken($token);
 		$delete_form = $this->createDeleteForm($token);
+        $publish_form = $this->createPublishForm($token);
+        $extend_form = $this->createExtendForm($token);
 
 		if(!$entity)
 		{
 			throw $this->createNotFoundException("Job not found!");
 		}
 
-		return $this->render("IbwJobeetBundle:Job:show.html.twig", array("entity" => $entity, "delete_form" => $delete_form->createView()));
+		return $this->render("IbwJobeetBundle:Job:show.html.twig", array(
+            "entity" => $entity,
+            "delete_form" => $delete_form->createView(),
+            "publish_form" => $publish_form->createView(),
+            "extend_form" => $extend_form->createView(),
+        ));
 	}
 
 
 	public function newAction()
 	{
 		$entity = new Job();
+        $entity->setType('full-time');
 		$form = $this->createForm(new JobType(), $entity);
 
 		return $this->render('IbwJobeetBundle:Job:new.html.twig', array(
@@ -56,30 +64,30 @@ class JobController extends Controller
 	     ));
 	}
 
-	public function createAction(Request $request)
-	{
-		$entity = new Job();
-		$form = $this->createForm(new JobType(), $entity);
-		$form->handleRequest($request);
+    public function createAction(Request $request)
+    {
+        $entity = new Job();
+        $form = $this->createForm(new JobType(), $entity);
+        $form->handleRequest($request);
 
-		if($form->isValid())
-		{
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($entity);
-			$em->flush();
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
 
-			return $this->redirect($this->generateUrl('ibw_job_preview', array(
-					'company' 	=> $entity->getCompanySlug(),
-					'location' 	=> $entity->getLocationSlug(),
-					'position'	=> $entity->getPositionSlug(),
-					'token'		=> $entity->getToken(),
-				)));
-		} else {
-			return $this->render('IbwJobeetBundle:Job:new.html.twig', array(
-					'form' => $form->createView(),
-				));
-		}
-	}
+            return $this->redirect($this->generateUrl('ibw_job_preview', array(
+                    'company' 	=> $entity->getCompanySlug(),
+                    'location' 	=> $entity->getLocationSlug(),
+                    'position'	=> $entity->getPositionSlug(),
+                    'token'		=> $entity->getToken(),
+                )));
+        } else {
+    			return $this->render('IbwJobeetBundle:Job:new.html.twig', array(
+    					'form' => $form->createView(),
+    				));
+        }
+    }
 
 	public function editAction($token)
 	{	
@@ -89,6 +97,11 @@ class JobController extends Controller
 		{
 			throw $this->createNotFoundException('Job not found !');
 		}
+
+        if($entity->getIsActivated())
+        {
+            throw $this->createNotFoundException("Cannot edit activated job.");
+        }
 
 		$form = $this->createForm(new JobType(), $entity);
 
@@ -141,11 +154,10 @@ class JobController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Job entity.');
             }
- 
             $em->remove($entity);
             $em->flush();
         }
- 
+
         return $this->redirect($this->generateUrl('ibw_job_index'));
     }
 
@@ -176,6 +188,46 @@ class JobController extends Controller
             'position'	=> $entity->getPositionSlug(),
             'token'		=> $entity->getToken(),
         )));
+    }
+
+    public function extendAction(Request $request, $token)
+    {
+        $form = $this->createExtendForm($token);
+        $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
+            if(!$entity)
+            {
+                throw $this->createNotFoundException("Job Not found");
+            }
+
+            if(!$entity->extend())
+            {
+                throw $this->createNotFoundException("Unable to extend the job");
+            }
+
+            $em->persist($entity);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('notice', sprintf('Your job validity has been extended until %s', $entity->getExpiresAt()->format('m/d/Y')));
+        }
+
+        return $this->redirect($this->generateUrl('ibw_job_preview', array(
+            'company' => $entity->getCompanySlug(),
+            'location' => $entity->getLocationSlug(),
+            'token' => $entity->getToken(),
+            'position' => $entity->getPositionSlug()
+        )));
+    }
+
+    public function createExtendForm($token)
+    {
+        return $this->createFormBuilder(array('token'=>$token))
+            ->add('token','hidden')
+            ->getForm();
     }
 
     public function createPublishForm($token)

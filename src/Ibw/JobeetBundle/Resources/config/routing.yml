@@ -58,4 +58,9 @@ ibw_job_update:
 ibw_job_delete:
     pattern:  /{token}/delete
     defaults: { _controller: "IbwJobeetBundle:Job:delete" }
-    methods:    [POST,DELETE]
+    methods:  [POST,DELETE]
+
+ibw_job_extend:
+    pattern:  /{token}/extend
+    defaults: { _controller: "IbwJobeetBundle:Job:extend" }
+    methods:  [POST]

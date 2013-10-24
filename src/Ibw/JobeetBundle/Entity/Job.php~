@@ -3,6 +3,7 @@ namespace Ibw\JobeetBundle\Entity;
 
 use Ibw\JobeetBundle\Entity\Category;
 use Ibw\JobeetBundle\Utils\Jobeet;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,11 +23,14 @@ class Job
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Choice(callback="getTypeValues")
 	 */
 	protected $type;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
 	 */
 	protected $company;
 
@@ -35,33 +39,44 @@ class Job
 	 */
 	protected $logo;
 
+    /**
+     * @Assert\Image()
+     */
+    protected $file;
+
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
 	 */
 	protected $url;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
 	 */
 	protected $position;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
 	 */
 	protected $location;
 
 	/**
 	 * @ORM\Column(type="text")
+     * @Assert\NotBlank()
 	 */
 	protected $description;
 
 	/**
 	 * @ORM\Column(type="text")
+     * @Assert\NotBlank()
 	 */
 	protected $how_to_apply;
 
 	/**
 	 * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
 	 */
 	protected $token;
 
@@ -77,6 +92,8 @@ class Job
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
 	 */
 	protected $email;
 
@@ -98,11 +115,12 @@ class Job
 	/**
 	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="jobs")
 	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\NotBlank()
 	 */
 	protected $category;
 
 	/**
-	 * @ORM\PrePersist
+	 * @ORM\PrePersist()
 	 */
 	public function setCreatedAtValue()
 	{
@@ -113,7 +131,7 @@ class Job
 	}
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      */
     public function setExipresAtValue()
     {
@@ -125,7 +143,7 @@ class Job
     }
 
 	/**
-	 * @ORM\PreUpdate
+	 * @ORM\PreUpdate()
 	 */
 	public function setUpdatedAtValue()
 	{
@@ -163,6 +181,16 @@ class Job
     public function getType()
     {
         return $this->type;
+    }
+
+    public static function getTypes()
+    {
+        return array('full-time' => 'Full time', 'part-time' => 'Part time', 'freelance' => 'Freelance');
+    }
+
+    public static function getTypeValues()
+    {
+        return array_keys(self::getTypes());
     }
 
     /**
@@ -502,8 +530,7 @@ class Job
 
     /**
      * Get category
-     *
-     * @return Category 
+     * @return Category
      */
     public function getCategory()
     {
@@ -524,4 +551,102 @@ class Job
     {
         return Jobeet::slugify($this->getLocation());
     }
+
+    public function getUploadDir()
+    {
+        return 'uploads/jobs';
+    }
+
+    public function getRootUploadDir()
+    {
+        return "/../../../../web/". $this->getUploadDir();
+    }
+
+    public function getWebPath()
+    {
+        return $this->logo === null ? null : $this->getUploadDir()."/".$this->logo;
+    }
+
+    public function getAbsolutePath()
+    {
+        return $this->logo === null ? null : $this->getRootUploadDir()."/".$this->logo;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if($this->file !== null)
+        {
+            $this->logo = uniqid().".".$this->file->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist
+     * @ORM\PreUpdate()
+     */
+    public function upload()
+    {
+        if($this->file === null)
+        {
+            return;
+        }
+
+        if(!file_exists($this->getUploadDir()))
+        {
+            mkdir($this->getUploadDir(),0777, true);
+        }
+
+        $this->file->move($this->getRootUploadDir(), $this->logo);
+        unset($this->file);
+    }
+
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+        if($this->getAbsolutePath() !== null){
+            if(file_exists($this->getAbsolutePath()))
+            {
+                unlink($this->getAbsolutePath());
+            }
+        }
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setTokenValue()
+    {
+        if(!$this->getToken())
+        {
+            $this->setToken(sha1($this->getEmail().rand(11111,99999)));
+        }
+    }
+
+    public function getDaysBeforeExpiration()
+    {
+        return ceil(($this->getExpiresAt()->format('U') - time()) / 86400);
+    }
+
+    public function expiresSoon()
+    {
+        return $this->getDaysBeforeExpiration() < 5;
+    }
+
+    public function isExpired()
+    {
+        return $this->getDaysBeforeExpiration() < 0;
+    }
+
+    public function publish()
+    {
+        $this->setIsActivated(true);
+        return;
+    }
+
 }

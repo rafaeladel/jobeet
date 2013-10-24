@@ -29,6 +29,7 @@ class JobType extends AbstractType
 	{
 		$resolver->setDefaults(array(
 				'data_class' => 'Ibw\JobeetBundle\Entity\Job',
+                'validation_groups' => array('Form'),
 			));
 	}
 

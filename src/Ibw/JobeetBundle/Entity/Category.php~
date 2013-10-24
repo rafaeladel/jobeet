@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Ibw\JobeetBundle\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
+ * @ORM\HasLifecycleCallbacks
  */
 class Category 
 {
@@ -27,10 +28,10 @@ class Category
 	 */
 	protected $name;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="Job", mappedBy="category")
-	 */
-	protected $jobs;
+    /**
+     * @ORM\OneToMany(targetEntity="Job", mappedBy="category", cascade={"persist"})
+     */
+    protected $jobs;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="Affiliate", mappedBy="categories")
@@ -148,5 +149,42 @@ class Category
     public function getAffiliates()
     {
         return $this->affiliates;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setSlugValue()
+    {
+        $this->setSlug(Jobeet::slugify($this->getName()));
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

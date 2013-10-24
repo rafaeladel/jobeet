@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Ibw\JobeetBundle\Repository\JobRepository")
  * @ORM\Table(name="jobs")
- * @ORM\HasLifecycleCallbacks;
+ * @ORM\HasLifecycleCallbacks
+ * @Assert\GroupSequence({"Form", "Job"})
  */
 class Job
 {
@@ -23,14 +24,14 @@ class Job
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Choice(callback="getTypeValues")
+     * @Assert\NotBlank(groups={"Form"})
+     * @Assert\Choice(callback="getTypeValues", groups={"Form"})
 	 */
 	protected $type;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $company;
 
@@ -40,37 +41,37 @@ class Job
 	protected $logo;
 
     /**
-     * @Assert\Image()
+     * @Assert\Image(groups={"Form"})
      */
-    public $file;
+    protected $file;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url()
+     * @Assert\Url(groups={"Form"})
 	 */
 	protected $url;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $position;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $location;
 
 	/**
 	 * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $description;
 
 	/**
 	 * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $how_to_apply;
 
@@ -92,8 +93,8 @@ class Job
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\NotBlank(groups={"Form"})
+     * @Assert\Email(groups={"Form"})
 	 */
 	protected $email;
 
@@ -115,12 +116,12 @@ class Job
 	/**
 	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="jobs")
 	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $category;
 
 	/**
-	 * @ORM\PrePersist
+	 * @ORM\PrePersist()
 	 */
 	public function setCreatedAtValue()
 	{
@@ -131,7 +132,7 @@ class Job
 	}
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      */
     public function setExipresAtValue()
     {
@@ -139,11 +140,12 @@ class Job
         {
             $now = $this->getCreatedAt() ? $this->getCreatedAt()->format("U") : time();
             $this->setExpiresAt(new \DateTime(date('Y-m-d H:i:s', $now + 86400 * 30)));
+//            $this->setExpiresAt(\DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime("+1 month"))->format("Y-m-d H:i:s")));
         }
     }
 
 	/**
-	 * @ORM\PreUpdate
+	 * @ORM\PreUpdate()
 	 */
 	public function setUpdatedAtValue()
 	{
@@ -552,6 +554,16 @@ class Job
         return Jobeet::slugify($this->getLocation());
     }
 
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
     public function getUploadDir()
     {
         return 'uploads/jobs';
@@ -573,7 +585,18 @@ class Job
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PostLoad()
+     */
+    public function postLoad()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * WARNING!! PreUpdate no fired since $file is not managed by Doctrine.
+     * SOLUTION: use PostLoad() Event.
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function preUpload()
     {
@@ -584,7 +607,8 @@ class Job
     }
 
     /**
-     * @ORM\PostPersist
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
      */
     public function upload()
     {
@@ -598,12 +622,12 @@ class Job
             mkdir($this->getUploadDir(),0777, true);
         }
 
-        $this->file->move($this->getRootUploadDir(), $this->logo);
+        $this->file->move($this->getUploadDir(), $this->logo);
         unset($this->file);
     }
 
     /**
-     * @ORM\PostRemove
+     * @ORM\PostRemove()
      */
     public function removeUpload()
     {
@@ -616,7 +640,7 @@ class Job
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PrePersist()
      */
     public function setTokenValue()
     {
@@ -646,4 +670,20 @@ class Job
         $this->setIsActivated(true);
         return;
     }
+
+    public function extend()
+    {
+        if(!$this->expiresSoon())
+        {
+            return false;
+        }
+        else
+        {
+//            $this->expires_at = new \DateTime('+1 month');
+//            $this->setExpiresAt(\DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime("+1 month"))->format("Y-m-d H:i:s")));
+            $this->expires_at = new \DateTime(date('Y-m-d H:i:s', time() + 86400 * 30));
+            return true;
+        }
+    }
+
 }

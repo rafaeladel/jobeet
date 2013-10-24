@@ -95,7 +95,7 @@
 			"file": "src/Ibw/JobeetBundle/Controller/JobController.php",
 			"settings":
 			{
-				"buffer_size": 5661,
+				"buffer_size": 6027,
 				"line_ending": "Unix"
 			}
 		},
@@ -111,7 +111,7 @@
 			"file": "src/Ibw/JobeetBundle/Resources/views/Job/new.html.twig",
 			"settings":
 			{
-				"buffer_size": 4607,
+				"buffer_size": 4619,
 				"line_ending": "Unix"
 			}
 		},
@@ -127,7 +127,7 @@
 			"file": "src/Ibw/JobeetBundle/Entity/Job.php",
 			"settings":
 			{
-				"buffer_size": 11009,
+				"buffer_size": 11586,
 				"line_ending": "Unix"
 			}
 		},
@@ -135,7 +135,7 @@
 			"file": "src/Ibw/JobeetBundle/Tests/Functional/JobControllerTest.php",
 			"settings":
 			{
-				"buffer_size": 3390,
+				"buffer_size": 3461,
 				"line_ending": "Unix"
 			}
 		},
@@ -151,7 +151,7 @@
 			"file": "src/Ibw/JobeetBundle/Resources/views/Job/edit.html.twig",
 			"settings":
 			{
-				"buffer_size": 4298,
+				"buffer_size": 4323,
 				"line_ending": "Unix"
 			}
 		},
@@ -159,7 +159,7 @@
 			"file": "src/Ibw/JobeetBundle/Resources/views/Job/show.html.twig",
 			"settings":
 			{
-				"buffer_size": 1472,
+				"buffer_size": 1461,
 				"line_ending": "Unix"
 			}
 		},
@@ -167,7 +167,7 @@
 			"file": "src/Ibw/JobeetBundle/Resources/views/Job/admin.html.twig",
 			"settings":
 			{
-				"buffer_size": 1508,
+				"buffer_size": 1733,
 				"line_ending": "Unix"
 			}
 		},
@@ -569,7 +569,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5661,
+						"buffer_size": 6027,
 						"regions":
 						{
 						},
@@ -624,7 +624,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4607,
+						"buffer_size": 4619,
 						"regions":
 						{
 						},
@@ -682,7 +682,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11009,
+						"buffer_size": 11586,
 						"regions":
 						{
 						},
@@ -711,7 +711,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3390,
+						"buffer_size": 3461,
 						"regions":
 						{
 						},
@@ -767,15 +767,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4298,
+						"buffer_size": 4323,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								689,
-								689
+								0,
+								0
 							]
 						],
 						"settings":
@@ -796,15 +796,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1472,
+						"buffer_size": 1461,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								442,
-								442
+								0,
+								0
 							]
 						],
 						"settings":
@@ -825,7 +825,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1508,
+						"buffer_size": 1733,
 						"regions":
 						{
 						},

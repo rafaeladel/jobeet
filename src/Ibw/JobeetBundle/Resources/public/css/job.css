@@ -53,6 +53,11 @@
   background: #fff;
 }
 
+#job .logo img {
+    height: 100px;
+    width: 150px;
+}
+
 #job_actions
 {
   margin: 3px 0;

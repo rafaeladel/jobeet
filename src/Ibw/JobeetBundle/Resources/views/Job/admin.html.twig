@@ -3,7 +3,12 @@
     <ul>
         {% if not job.isActivated %}
             <li><a href="{{ path('ibw_job_edit', { 'token': job.token }) }}">Edit</a></li>
-            <li><a href="{{ path('ibw_job_edit', { 'token': job.token }) }}">Publish</a></li>
+            <li>
+                {{ form_start(publish_form, {'action': path('ibw_job_publish', { 'token': job.token }), 'method': 'post'} ) }}
+                    {{ form_widget(publish_form) }}
+                    <input type="submit" value="Publish" />
+                {{ form_end(publish_form) }}
+            </li>
         {% endif %}
         <li>
             <form action="{{ path('ibw_job_delete', { 'token': job.token }) }}" method="post">
@@ -24,7 +29,10 @@
                 {% endif %}
 
                 {% if job.expiresSoon %}
-                    - <a href="">Extend</a> for another 30 days
+                    {{ form_start(extend_form, {'action': path('ibw_job_extend', {'token': entity.token}), 'method': 'post'}) }}
+                        {{ form_widget(extend_form) }}
+                        <input type="submit" value="Extend"/>
+                    {{ form_end(extend_form) }}
                 {% endif %}
             </li>
         {% else %}
