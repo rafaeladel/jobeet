@@ -64,3 +64,14 @@ ibw_job_extend:
     pattern:  /{token}/extend
     defaults: { _controller: "IbwJobeetBundle:Job:extend" }
     methods:  [POST]
+
+login:
+    pattern:  /login
+    defaults: { _controller: "IbwJobeetBundle:Default:login" }
+    methods: [GET]
+
+login_check:
+    pattern:  /login_check
+
+logout:
+    pattern: /logout

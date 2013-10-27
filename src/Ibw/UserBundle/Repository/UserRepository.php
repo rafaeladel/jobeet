@@ -19,7 +19,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                     ->where('u.username = :username')
                     ->setParameter('username', $username)
                     ->getQuery();
-
         try
         {
             $user = $q->getSingleResult();
@@ -42,8 +41,9 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             throw new UnsupportedUserException($message);
         }
 
-        //If the serialize method in User is to serialize Id, getUsername() will return nothing!
-        //So use $this->find($user->getId()); instead
+        //If the serialize() in User is to serialize Id, getUsername() will return nothing!
+        //So serialize() should serialize the username,
+        //or use $this->find($user->getId()); instead
         return $this->loadUserByUsername($user->getUsername());
     }
 

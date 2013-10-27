@@ -1,7 +1,7 @@
 <?php
 namespace Ibw\UserBundle\Entity;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,11 +36,17 @@ class User implements UserInterface, \Serializable
      */
     protected $password;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
+     */
+    protected $roles;
+
     public function __construct(ContainerInterface $container)
     {
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
         $this->container = $container;
+        $this->roles = new ArrayCollection();
     }
 
     public function setUsername($username)
@@ -61,7 +67,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        return $this->roles->toArray();
     }
 
     public function getPassword()
@@ -110,5 +116,28 @@ class User implements UserInterface, \Serializable
         $this->salt = $salt;
     
         return $this;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Ibw\UserBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Ibw\UserBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Ibw\UserBundle\Entity\Role $roles
+     */
+    public function removeRole(\Ibw\UserBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
     }
 }
