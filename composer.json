@@ -21,8 +21,10 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
-	"sonata-project/admin-bundle":	"dev-master",
-	"sonata-project/doctrine-orm-admin-bundle": "dev-master"	
+        "sonata-project/admin-bundle":	"dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "doctrine/mongodb-odm": "dev-master",
+        "doctrine/mongodb-odm-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
