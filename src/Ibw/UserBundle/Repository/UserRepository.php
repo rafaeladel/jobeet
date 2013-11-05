@@ -2,7 +2,7 @@
 
 namespace Ibw\UserBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 use Doctrine\ORM\NoResultException;
 use Ibw\UserBundle\IbwUserBundle;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -10,15 +10,13 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserRepository extends EntityRepository implements UserProviderInterface
+class UserRepository extends DocumentRepository implements UserProviderInterface
 {
     public function loadUserByUsername($username)
     {
-        $q = $this->createQueryBuilder('u')
-                    ->select('u, r')
-                    ->leftJoin('u.roles', 'r')
-                    ->where('u.username = :username')
-                    ->setParameter('username', $username)
+        $q = $this->createQueryBuilder()
+                    ->field('roles')->prime(true)
+                    ->field('username')->equals(new \MongoCode($username))
                     ->getQuery();
         try
         {
@@ -51,6 +49,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
+        return $this->getDocumentName() === $class || is_subclass_of($class, $this->getDocumentName());
     }
 }

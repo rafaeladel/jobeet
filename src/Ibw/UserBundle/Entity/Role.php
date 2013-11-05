@@ -2,35 +2,32 @@
 namespace Ibw\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Class Role
- * @ORM\Table(name="roles")
- * @ORM\Entity(repositoryClass="Ibw\UserBundle\Repository\RoleRepository")
+ * @MongoDB\Document(collection="roles", repositoryClass="Ibw\UserBundle\Repository\RoleRepository")
  */
 class Role implements RoleInterface
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", name="name", length=30)
+     * @MongoDB\String
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", name="role", length=20, unique=true)
+     * @MongoDB\String
      */
     protected $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @MongoDB\ReferenceMany(targetDocument="User", mappedBy="roles", simple=true)
      */
     protected $users;
 

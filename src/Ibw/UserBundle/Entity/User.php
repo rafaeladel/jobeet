@@ -5,39 +5,36 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Class User
- * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass="Ibw\UserBundle\Repository\UserRepository")
+ * @MongoDB\Document(collection="users", repositoryClass="Ibw\UserBundle\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @MongoDB\String
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @MongoDB\String
      */
     protected $salt;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @MongoDB\String
      */
     protected $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users", cascade={"persist"})
+     * @MongoDB\ReferenceMany(targetDocument="Role", inversedBy="users", simple=true, cascade={"persist"})
      */
     protected $roles;
 
