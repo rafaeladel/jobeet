@@ -1,45 +1,41 @@
 <?php
-namespace Ibw\JobeetBundle\Entity;
+namespace Ibw\JobeetBundle\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ibw\JobeetBundle\Entity\Affiliate;
-use Ibw\JobeetBundle\Entity\Job;
+use Ibw\JobeetBundle\Document\Affiliate;
+use Ibw\JobeetBundle\Document\Job;
 use Ibw\JobeetBundle\Utils\Jobeet;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @ORM\Entity(repositoryClass="Ibw\JobeetBundle\Repository\CategoryRepository")
- * @ORM\Table(name="categories")
- * @ORM\HasLifecycleCallbacks
+ * @MongoDB\Document(collection="categories", repositoryClass="Ibw\JobeetBundle\Repository\CategoryRepository")
  */
 class Category 
 {
 
 	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * @MongoDB\Id(strategy="AUTO")
 	 */
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=255, unique=true)
+	 * @MongoDB\String
 	 */
 	protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Job", mappedBy="category", cascade={"persist"})
+     * @MongoDB\ReferenceMany(targetDocument="Job", mappedBy="category", simple=true, cascade={"persist"})
      */
     protected $jobs;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Affiliate", mappedBy="categories")
+     * @MongoDB\ReferenceMany(targetDocument="Affiliate", mappedBy="categories", simple=true)
 	 */
 	protected $affiliates;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @MongoDB\String
      */
     protected $slug;
 
@@ -175,8 +171,8 @@ class Category
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
      */
     public function setSlugValue()
     {

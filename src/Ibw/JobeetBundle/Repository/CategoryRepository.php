@@ -2,71 +2,64 @@
 
 namespace Ibw\JobeetBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ODM\MongoDB\DocumentRepository;
+use Doctrine\ORM\NoResultException;
 
-class CategoryRepository extends EntityRepository
+class CategoryRepository extends DocumentRepository
 {
 	public function getWithAllJobs($limit = null)
 	{
-		$qb = $this->createQueryBuilder('c')
-					->select('c, j')
-					->innerJoin('c.jobs', 'j')
-					->addOrderBy('j.expires_at', 'DESC');
+		$qb = $this->createQueryBuilder()
+					->field('jobs')->prime(true)
+                    ->sort('jobs.expires_at', 'DESC');
 
 		if($limit)
 		{
-			$qb->setMaxResults($limit);
+			$qb->limit($limit);
 		}
 
-		return $qb->getQuery()->getResult();
+		return $qb->getQuery()->execute();
 	}
 
 	public function getWithActiveJobs($limit = null)
 	{
-		$qb = $this->createQueryBuilder('c')
-					->select('c, j')
-					->innerJoin('c.jobs', 'j')
-					->where('j.expires_at > :date')
-					->setParameter('date', date('Y-m-d H:i:s', time()))
-                    ->andWhere('j.is_activated = :activated ')
-                    ->setParameter('activated', 1)
-					->addOrderBy('j.expires_at', 'DESC');
+		$qb = $this->createQueryBuilder()
+                    ->field('jobs')->prime(true)
+                    ->field('jobs.expires_at')->gt(date('Y-m-d H:i:s', time()))
+                    ->field('jobs.is_activated')->equals(true)
+					->sort('jobs.expires_at', 'DESC');
 
 		if($limit)
 		{
-			$qb->setMaxResults($limit);
+			$qb->limit($limit);
 		}
-		return $qb->getQuery()->getResult();
+		return $qb->getQuery()->execute();
 	}
 
 	public function findOneWithActiveJobs($slug, $max = null, $offset = null)
 	{
-		$qb = $this->createQueryBuilder('c')
-					->select('c, j')
-					->where('c.slug = :slug')
-					->setParameter('slug', $slug)
-					->innerJoin('c.jobs', 'j')
-					->andWhere('j.expires_at > :date')
-					->setParameter('date', date('Y-m-d H:i:s', time()))
-                    ->andWhere('j.is_activated = :activated ')
-                    ->setParameter('activated', 1)
-					->addOrderBy('j.expires_at', 'DESC');
+		$qb = $this->createQueryBuilder()
+                    ->field('jobs')->prime(true)
+					->field('slug')->equals(new \MongoCode($slug))
+                    ->field('jobs.expires_at')->gt(date('Y-m-d H:i:s', time()))
+                    ->field('jobs.is_activated')->equals(true)
+                    ->sort('jobs.expires_at', 'DESC');
 
 		if($max)
 		{
-			$qb->setMaxResults($max);
+			$qb->limit($max);
 		}
 
 		if($offset)
 		{
-			$qb->setFirstResult($offset);
+			$qb->skip($offset);
 		}
 
 		try
 		{
 			$category = $qb->getQuery()->getSingleResult();
 		}
-		catch (Doctrine\ORM\NoResultException $e) 
+		catch (NoResultException $e)
 		{
 			$category = null;
 		}

@@ -1,126 +1,129 @@
 <?php 
-namespace Ibw\JobeetBundle\Entity;
+namespace Ibw\JobeetBundle\Document;
 
-use Ibw\JobeetBundle\Entity\Category;
-use Ibw\JobeetBundle\Utils\Jobeet;
+use Ibw\JobeetBundle\Document\Category;
 use Symfony\Component\Validator\Constraints as Assert;
-
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @ORM\Entity(repositoryClass="Ibw\JobeetBundle\Repository\JobRepository")
- * @ORM\Table(name="jobs")
- * @ORM\HasLifecycleCallbacks;
+ * @MongoDB\Document(collection="jobs", repositoryClass="Ibw\JobeetBundle\Repository\JobRepository")
+ * @Assert\GroupSequence({"Form", "Job"})
  */
 class Job
 {
 	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * @MongoDB\Id(strategy="AUTO")
 	 */
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\Choice(callback="getTypeValues")
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
+     * @Assert\Choice(callback="getTypeValues", groups={"Form"})
 	 */
 	protected $type;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $company;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+     * @MongoDB\String
 	 */
 	protected $logo;
 
     /**
-     * @Assert\Image()
+     * @Assert\Image(groups={"Form"})
      */
     protected $file;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url()
+     * @MongoDB\String
+     * @Assert\Url(groups={"Form"})
 	 */
 	protected $url;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $position;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $location;
 
 	/**
-	 * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+//	 * 
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $description;
 
 	/**
-	 * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+//	 * 
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $how_to_apply;
 
 	/**
-	 * @ORM\Column(type="string", length=255, unique=true)
+//	 * 
+     * @MongoDB\String
      * @Assert\NotBlank()
 	 */
 	protected $token;
 
 	/**
-	 * @ORM\Column(type="boolean", nullable=true)
+//	 * 
+     * @MongoDB\Boolean
 	 */
 	protected $is_public;
 
 	/**
-	 * @ORM\Column(type="boolean", nullable=true)
+//	 * 
+     * @MongoDB\Boolean
 	 */
 	protected $is_activated;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+//	 * 
+     * @MongoDB\String
+     * @Assert\NotBlank(groups={"Form"})
+     * @Assert\Email(groups={"Form"})
 	 */
 	protected $email;
 
 	/**
-	 * @ORM\Column(type="datetime")
+//	 * 
+     * @MongoDB\Date
 	 */
 	protected $expires_at;
 
 	/**
-	 * @ORM\Column(type="datetime")
+//	 * 
+     * @MongoDB\Date
 	 */
 	protected $created_at;
 
 	/**
-	 * @ORM\Column(type="datetime", nullable=true)
+//	 * 
+     * @MongoDB\Date
 	 */
 	protected $updated_at;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="jobs")
-	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     * @Assert\NotBlank()
+     * @MongoDB\ReferenceOne(targetDocument="Category", inversedBy="jobs", simple=true)
+     * @Assert\NotBlank(groups={"Form"})
 	 */
 	protected $category;
 
 	/**
-	 * @ORM\PrePersist()
+	 * @MongoDB\PrePersist()
 	 */
 	public function setCreatedAtValue()
 	{
@@ -131,7 +134,7 @@ class Job
 	}
 
     /**
-     * @ORM\PrePersist()
+     * @MongoDB\PrePersist()
      */
     public function setExipresAtValue()
     {
@@ -139,11 +142,12 @@ class Job
         {
             $now = $this->getCreatedAt() ? $this->getCreatedAt()->format("U") : time();
             $this->setExpiresAt(new \DateTime(date('Y-m-d H:i:s', $now + 86400 * 30)));
+//            $this->setExpiresAt(\DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime("+1 month"))->format("Y-m-d H:i:s")));
         }
     }
 
 	/**
-	 * @ORM\PreUpdate()
+	 * @MongoDB\PreUpdate()
 	 */
 	public function setUpdatedAtValue()
 	{
@@ -552,6 +556,16 @@ class Job
         return Jobeet::slugify($this->getLocation());
     }
 
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
     public function getUploadDir()
     {
         return 'uploads/jobs';
@@ -573,8 +587,18 @@ class Job
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
+     * @MongoDB\PostLoad()
+     */
+    public function postLoad()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * WARNING!! PreUpdate no fired since $file is not managed by Doctrine.
+     * SOLUTION: use PostLoad() Event.
+     * @MongoDB\PrePersist()
+     * @MongoDB\PreUpdate()
      */
     public function preUpload()
     {
@@ -585,8 +609,8 @@ class Job
     }
 
     /**
-     * @ORM\PostPersist
-     * @ORM\PreUpdate()
+     * @MongoDB\PostPersist()
+     * @MongoDB\PostUpdate()
      */
     public function upload()
     {
@@ -600,12 +624,12 @@ class Job
             mkdir($this->getUploadDir(),0777, true);
         }
 
-        $this->file->move($this->getRootUploadDir(), $this->logo);
+        $this->file->move($this->getUploadDir(), $this->logo);
         unset($this->file);
     }
 
     /**
-     * @ORM\PostRemove
+     * @MongoDB\PostRemove()
      */
     public function removeUpload()
     {
@@ -618,7 +642,7 @@ class Job
     }
 
     /**
-     * @ORM\PrePersist()
+     * @MongoDB\PrePersist()
      */
     public function setTokenValue()
     {
@@ -647,6 +671,21 @@ class Job
     {
         $this->setIsActivated(true);
         return;
+    }
+
+    public function extend()
+    {
+        if(!$this->expiresSoon())
+        {
+            return false;
+        }
+        else
+        {
+//            $this->expires_at = new \DateTime('+1 month');
+//            $this->setExpiresAt(\DateTime::createFromFormat('Y-m-d H:i:s', (new \DateTime("+1 month"))->format("Y-m-d H:i:s")));
+            $this->expires_at = new \DateTime(date('Y-m-d H:i:s', time() + 86400 * 30));
+            return true;
+        }
     }
 
 }

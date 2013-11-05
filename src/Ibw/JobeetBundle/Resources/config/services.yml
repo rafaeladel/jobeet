@@ -14,7 +14,7 @@ services:
           - { name: twig.extension }
         arguments:
             container:  "@service_container"
-            doctrine:   "@doctrine"
+            doctrine:   "@doctrine_mongodb"
 
     ibw_jobeet_twig_paginator_extension:
         class: %ibw_jobeet_paginator.extension%
@@ -29,23 +29,23 @@ services:
     paginator:
         class: %ibw_jobeet_paginator.class%
 
-    ibw.jobeet.admin.category:
-        class: %ibw.jobeet.admin.category.class%
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: jobeet, label: Categories }
-        arguments:
-            - ~
-            - Ibw\JobeetBundle\Entity\Category
-            - 'IbwJobeetBundle:CategoryAdmin'
-
-    ibw.jobeet.admin.job:
-        class: %ibw.jobeet.admin.job.class%
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: jobeet, label: Jobs }
-        arguments:
-            - ~
-            - Ibw\JobeetBundle\Entity\Job
-            - 'IbwJobeetBundle:JobAdmin'
+#    ibw.jobeet.admin.category:
+#        class: %ibw.jobeet.admin.category.class%
+#        tags:
+#            - { name: sonata.admin, manager_type: odm, group: jobeet, label: Categories }
+#        arguments:
+#            - ~
+#            - Ibw\JobeetBundle\Document\Category
+#            - 'IbwJobeetBundle:CategoryAdmin'
+#
+#    ibw.jobeet.admin.job:
+#        class: %ibw.jobeet.admin.job.class%
+#        tags:
+#            - { name: sonata.admin, manager_type: odm, group: jobeet, label: Jobs }
+#        arguments:
+#            - ~
+#            - Ibw\JobeetBundle\Document\Job
+#            - 'IbwJobeetBundle:JobAdmin'
 
 #    ibw.user.provider:
 #        class: %ibw.user.provider.class%

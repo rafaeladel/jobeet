@@ -1,13 +1,7 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_sqlite
-    database_name: jobeet
-    database_user: jobeetadmin
-    database_password: null
-    database_memory: false
-    database_path: jobeet.sqlite3
-#    database_memory: true
-#    database_path: :memory:
+    database_server: mongodb://localhost:27017
+    database_name: jobeet_test
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null

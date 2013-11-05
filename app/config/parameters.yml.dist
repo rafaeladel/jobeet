@@ -1,12 +1,6 @@
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    database_memory:  ~
-    database_path:  ~
+    database_server: mongodb://localhost:27017
+    database_name: jobeet_test
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
@@ -16,5 +10,5 @@ parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-     max_jobs_on_homepage: 10
-     max_jobs_on_category: 10
+    max_jobs_on_homepage: 10
+    max_jobs_on_category: 10

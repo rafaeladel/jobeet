@@ -1,45 +1,39 @@
 <?php 
 namespace Ibw\JobeetBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ODM\MongoDB\DocumentRepository;
+use Doctrine\ORM\NoResultException;
 
-class JobRepository extends EntityRepository
+class JobRepository extends DocumentRepository
 {
 	public function findValidJobs($category_id = null)
 	{
-		$queryBuilder = $this->createQueryBuilder('j')
-						->select('j')
-						->where('j.expires_at > :date')
-						->setParameter('date', date('Y-m-d H:i:s', time() - 86400 * 30))
-                        ->andWhere('j.is_activated = :activated ')
-                        ->setParameter('activated', 1)
-						->addOrderBy('j.expires_at', 'DESC');
-		if($category_id)
+		$queryBuilder = $this->createQueryBuilder()
+                        ->field('expires_at')->gt(date('Y-m-d H:i:s', time() - 86400 * 30))
+                        ->field('activated')->equals(true)
+                        ->sort('expires_at', 'DESC');
+
+        if($category_id)
 		{
-			$queryBuilder->andWhere('j.category = :c_id')
-							->setParameter('c_id', $category_id);
+            $queryBuilder->field('category', new \MongoCode($category_id));
 		}
 						
-		return $queryBuilder->getQuery()->getResult();
+		return $queryBuilder->getQuery()->execute();
 	}
 
 	public function getActiveJob($id)
 	{
-		$queryBuilder = $this->createQueryBuilder('j')
-						->select('j')
-						->where('j.expires_at > :date')
-						->andWhere('j.id = :id')
-						->setParameters(array('date' => date('Y-m-d H:i:s', time() - 86400 * 30), 'id' => $id))
-                        ->andWhere('j.is_activated = :activated ')
-                        ->setParameter('activated', 1)
-						->addOrderBy('j.expires_at', 'DESC')
-						->getQuery();
+		$queryBuilder = $this->createQueryBuilder()
+                                ->field('expires_at')->gt(date('Y-m-d H:i:s', time() - 86400 * 30))
+                                ->field('activated')->equals(true)
+                                ->sort('expires_at', 'DESC')
+                                ->getQuery();
 
 		try
 		{
 			$job = $queryBuilder->getSingleResult();
 		}
-		catch(\Doctrine\ORM\NoResultException $e)
+		catch(NoResultException $e)
 		{
 			$job = null;
 		}
@@ -49,20 +43,16 @@ class JobRepository extends EntityRepository
 
 	public function getJobsCount($category_id = null)
 	{
-		$qb = $this->createQueryBuilder('j')
-					->select('count(j.id)')
-					->where('j.expires_at > :date')
-					->setParameter('date', date('Y-m-d H:i:s', time()))
-                    ->andWhere('j.is_activated = :activated ')
-                    ->setParameter('activated', 1);
+		$qb = $this->createQueryBuilder()
+                    ->field('expires_at')->gt(date('Y-m-d H:i:s', time() - 86400 * 30))
+                    ->field('activated')->equals(true);
 
 		if($category_id)
 		{
-			$qb->andWhere('j.category = :cat_id')
-				->setParameter('cat_id' , $category_id);
+            $qb->field('category', new \MongoCode($category_id));
 		}
 
-		$count = $qb->getQuery()->getSingleScalarResult();
+		$count = $qb->getQuery()->count();
 
 		return $count;
 	}
@@ -70,11 +60,11 @@ class JobRepository extends EntityRepository
     public function cleanup($days)
     {
         $days = ($days > 0 && is_int($days)) ? $days : 0;
+        $days = new \MongoCode($days);
         $query = $this->createQueryBuilder('j')
-                        ->delete()
-                        ->where('j.is_activated IS NULl')
-                        ->andWhere('j.created_at < :created_at')
-                        ->setParameter('created_at', (new \DateTime("-{$days} days"))->format('Y-m-d'))
+                        ->remove()
+                        ->field('is_activated')->equals(null)
+                        ->field('created_at')->lt((new \DateTime("-{$days} days"))->format('Y-m-d'))
                         ->getQuery();
 
         return $query->execute();

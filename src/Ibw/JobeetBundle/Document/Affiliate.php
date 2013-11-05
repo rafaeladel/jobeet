@@ -1,62 +1,54 @@
 <?php
-namespace Ibw\JobeetBundle\Entity;
+namespace Ibw\JobeetBundle\Document;
 	
 use Doctrine\Common\Collections\ArrayCollection;
-use Ibw\JobeetBundle\Entity\Category;
+use Ibw\JobeetBundle\Document\Category;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="affiliates")
- * @ORM\HasLifecycleCallbacks
+ * @MongoDB\Document(collection="affiliates")
  */
 class Affiliate
 {
 
 	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * @MongoDB\Id(strategy="AUTO")
 	 */
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @MongoDB\String
 	 */
 	protected $url;
 
 	/**
-	 * @ORM\Column(type="string", length=255, unique=true)
+     * @MongoDB\String
 	 */
 	protected $email;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+     * @MongoDB\String
 	 */
 	protected $token;
 
 	/**
-	 * @ORM\Column(type="boolean", nullable=true)
+     * @MongoDB\Boolean
 	 */
 	protected $is_active;
 
 	/**
-	 * @ORM\Column(type="datetime")
+     * @MongoDB\Date
 	 */
 	protected $created_at;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Category")
-	 * @ORM\JoinTable(name="category_affiliate",
-	 * 			joinColumns={ @ORM\JoinColumn(name="affiliate_id", referencedColumnName="id") },
-	 * 			inverseJoinColumns={ @ORM\JoinColumn(name="category_id", referencedColumnName="id") }
-	 * )
+     * @MongoDB\ReferenceMany(targetDocument="Category", inversedBy="affiliates", simple=true)
 	 */
 	protected $categories;
 
 	/**
-	 * @ORM\PrePersist
+	 * @MongoDB\PrePersist
 	 */
 	public function setCreatedAtValue()
 	{

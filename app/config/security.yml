@@ -22,8 +22,8 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     providers:
-        default_provider:
-            entity: { class: IbwUserBundle:User }
+        mongo_db_provider:
+            mongodb: { class: IbwUserBundle:User, property: username }
 
     encoders:
         Ibw\UserBundle\Entity\User: sha512
