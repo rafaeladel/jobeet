@@ -18,7 +18,7 @@ class JobeetCleanupCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $days = $input->getArgument('days');
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->getContainer()->get('doctrine_mongodb')->getManager();
         $countCleaned = $em->getRepository('IbwJobeetBundle:Job')->cleanup($days);
 
         $output->writeln(sprintf("-> Removing jobs posted before %d days ago. \n   - Removed %s stale jobs", $days, $countCleaned));

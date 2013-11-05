@@ -28,7 +28,7 @@ class IbwUsersCommand extends ContainerAwareCommand
         $password = $input->getOption('password');
         $roles = $input->getOption('role');
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->getContainer()->get('doctrine_mongodb')->getManager();
 
         $user = new User($this->getContainer());
         $user->setUsername($username);

@@ -1,5 +1,5 @@
 <?php
-namespace Ibw\UserBundle\Entity;
+namespace Ibw\UserBundle\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;

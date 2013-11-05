@@ -11,7 +11,7 @@ class JobController extends Controller
 {
 	public function indexAction()
 	{
-		$repo = $this->getDoctrine()->getManager()->getRepository("IbwJobeetBundle:Category");
+		$repo = $this->get("doctrine_mongodb")->getManager()->getRepository("IbwJobeetBundle:Category");
 		$categories = $repo->getWithActiveJobs($this->container->getParameter('max_jobs_on_homepage'));
 
 		return $this->render("IbwJobeetBundle:Job:index.html.twig", array("categories" => $categories));
@@ -19,7 +19,7 @@ class JobController extends Controller
 
 	public function showAction($id, $company, $position, $location)
 	{
-		$repo = $this->getDoctrine()->getManager()->getRepository("IbwJobeetBundle:Job");
+		$repo = $this->get("doctrine_mongodb")->getManager()->getRepository("IbwJobeetBundle:Job");
 		$entity = $repo->find($id);
 
 		if(!$entity)
@@ -32,7 +32,7 @@ class JobController extends Controller
 
 	public function previewAction($token, $company, $position, $location)
 	{
-		$repo = $this->getDoctrine()->getManager()->getRepository("IbwJobeetBundle:Job");
+		$repo = $this->get("doctrine_mongodb")->getManager()->getRepository("IbwJobeetBundle:Job");
 		$entity = $repo->findOneByToken($token);
 		$delete_form = $this->createDeleteForm($token);
         $publish_form = $this->createPublishForm($token);
@@ -72,7 +72,7 @@ class JobController extends Controller
 
         if($form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get("doctrine_mongodb")->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -91,7 +91,7 @@ class JobController extends Controller
 
 	public function editAction($token)
 	{	
-		$em = $this->getDoctrine()->getManager();
+		$em = $this->get("doctrine_mongodb")->getManager();
 		$entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
 		if(!$entity)
 		{
@@ -113,7 +113,7 @@ class JobController extends Controller
 
 	public function updateAction(Request $request, $token)
 	{	
-		$em = $this->getDoctrine()->getManager();
+		$em = $this->get("doctrine_mongodb")->getManager();
 		$entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
 		if(!$entity)
 		{
@@ -148,7 +148,7 @@ class JobController extends Controller
         $form->handleRequest($request);
  
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get("doctrine_mongodb")->getManager();
             $entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
  
             if (!$entity) {
@@ -167,7 +167,7 @@ class JobController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get("doctrine_mongodb")->getManager();
             $entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
 
 
@@ -197,7 +197,7 @@ class JobController extends Controller
 
         if($form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get("doctrine_mongodb")->getManager();
             $entity = $em->getRepository('IbwJobeetBundle:Job')->findOneByToken($token);
             if(!$entity)
             {

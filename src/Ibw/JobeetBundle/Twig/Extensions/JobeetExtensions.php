@@ -1,12 +1,13 @@
 <?php
 namespace Ibw\JobeetBundle\Twig\Extensions;
 
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class JobeetExtensions extends \Twig_Extension
 {
-	public function __construct(ContainerInterface $container, RegistryInterface $doctrine)
+	public function __construct(ContainerInterface $container, ManagerRegistry $doctrine)
 	{
 		$this->container = $container;
 		$this->doctrine = $doctrine;

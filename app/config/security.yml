@@ -23,7 +23,7 @@ security:
 
     providers:
         mongo_db_provider:
-            mongodb: { class: IbwUserBundle:User, property: username }
+            mongodb: { class: Ibw\UserBundle\Document\User }
 
     encoders:
         Ibw\UserBundle\Entity\User: sha512

@@ -1,7 +1,7 @@
 <?php
 namespace Ibw\JobeetBundle\Forms;
 
-use Ibw\JobeetBundle\Entity\Job;
+use Ibw\JobeetBundle\Document\Job;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,7 +28,7 @@ class JobType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'Ibw\JobeetBundle\Entity\Job',
+				'data_class' => 'Ibw\JobeetBundle\Document\Job',
                 'validation_groups' => array('Form'),
 			));
 	}

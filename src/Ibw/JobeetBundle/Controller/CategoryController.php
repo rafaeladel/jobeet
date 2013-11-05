@@ -8,7 +8,7 @@ class CategoryController extends Controller
 {
 	public function showAction($id, $slug, $page)
 	{
-		$em = $this->getDoctrine()->getManager();
+		$em = $this->get('doctrine_mongodb')->getManager();
 
 		$total_jobs = $em->getRepository('IbwJobeetBundle:Job')->getJobsCount($id);
 		$per_page = $this->container->getParameter('max_jobs_on_category');
