@@ -1,6 +1,6 @@
 ibw_category_show:
     pattern:    /category/{id}/{slug}/{page}
-    defaults:   { _controller: IbwJobeetBundle:Category:show }
+    defaults:   { _controller: IbwJobeetBundle:Category:show, page: 1 }
     requirements:
         id: \d+
 
@@ -75,3 +75,9 @@ login_check:
 
 logout:
     pattern: /logout
+
+ibw_api_index:
+    pattern:  /api/{token}/jobs.{_format}
+    defaults: { _controller: IbwJobeetBundle:Api:list }
+    requirements:
+        _format: xml|json|yml

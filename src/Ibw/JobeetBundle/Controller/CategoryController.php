@@ -16,16 +16,32 @@ class CategoryController extends Controller
 
 		$paginator = $this->get('paginator');
 		$paginator->init($total_jobs, $per_page, $current_page);
-		
 
-		$category = $em->getRepository('IbwJobeetBundle:Category')->findOneWithActiveJobs($slug, $paginator->per_page, $paginator->offset);
 
-		if(!$category)
+        $format = $this->getRequest()->getRequestFormat();
+
+        $category = $em->getRepository('IbwJobeetBundle:Category')->findOneWithActiveJobs($slug, $paginator->per_page, $paginator->offset);
+
+        if(!$category)
 		{
 			throw $this->createNotFoundException('Category not found !');
 		}
 
-		return $this->render('IbwJobeetBundle:Category:show.html.twig', array('category' => $category, 'paginator' => $paginator));
+        $latestJob = $em->getRepository('IbwJobeetBundle:Job')->getLatestJob($category->getId());
+
+        if($latestJob) {
+            $lastUpdated = $latestJob->getCreatedAt()->format(DATE_ATOM);
+        } else {
+            $lastUpdated = new \DateTime();
+            $lastUpdated = $lastUpdated->format(DATE_ATOM);
+        }
+
+		return $this->render('IbwJobeetBundle:Category:show.'.$format.'.twig', array(
+                    'category' => $category,
+                    'paginator' => $paginator,
+                    'lastUpdated' => $lastUpdated,
+                    'feedId' => sha1($this->get('router')->generate("ibw_category_show", array("id" => $category->getId(), "slug" => $category->getSlug(), "page" => $page, "_format" => "atom")))
+                ));
 	}
 }
 ?>

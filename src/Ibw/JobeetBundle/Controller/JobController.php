@@ -11,10 +11,26 @@ class JobController extends Controller
 {
 	public function indexAction()
 	{
-		$repo = $this->getDoctrine()->getManager()->getRepository("IbwJobeetBundle:Category");
+        $em = $this->getDoctrine()->getManager();
+		$repo = $em->getRepository("IbwJobeetBundle:Category");
 		$categories = $repo->getWithActiveJobs($this->container->getParameter('max_jobs_on_homepage'));
+        $format = $this->getRequest()->getRequestFormat();
 
-		return $this->render("IbwJobeetBundle:Job:index.html.twig", array("categories" => $categories));
+        $latestJob = $em->getRepository("IbwJobeetBundle:Job")->getLatestJob();
+        if($latestJob)
+        {
+            $lastUpdated = $latestJob->getCreatedAt()->format(DATE_ATOM);
+        }
+        else
+        {
+            $lastUpdated = (new \DateTime())->format(DATE_ATOM);
+        }
+
+		return $this->render("IbwJobeetBundle:Job:index.{$format}.twig", array(
+                    "categories" => $categories,
+                    "lastUpdated" => $lastUpdated,
+                    "feedId" => sha1($this->get('router')->generate("ibw_job_index", array("_format" => "atom"), true))
+                ));
 	}
 
 	public function showAction($id, $company, $position, $location)

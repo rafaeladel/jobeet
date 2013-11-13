@@ -1,0 +1,8 @@
+{% for url, job in jobs %}
+    [
+        "url":"{{ url }}",
+        {% for key, value in job %}
+            {{ key }}: {{ value }}
+        {% endfor %}
+    ]
+{% endfor %}

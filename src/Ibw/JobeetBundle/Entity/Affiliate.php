@@ -7,7 +7,7 @@ use Ibw\JobeetBundle\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Ibw\JobeetBundle\Repository\AffiliateRepository")
  * @ORM\Table(name="affiliates")
  * @ORM\HasLifecycleCallbacks
  */
@@ -65,6 +65,19 @@ class Affiliate
 			$this->setCreatedAt(new \DateTime());
 		}	
 	}
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setTokenValue()
+    {
+        if(!$this->getToken())
+        {
+            $this->setToken(sha1($this->getEmail().rand(11111,99999)));
+        }
+        return $this;
+    }
+
     /**
      * Constructor
      */
@@ -204,7 +217,7 @@ class Affiliate
      * @param Category $categories
      * @return Affiliate
      */
-    public function addCategorie(Category $categories)
+    public function addCategories(Category $categories)
     {
         $this->categories[] = $categories;
     
